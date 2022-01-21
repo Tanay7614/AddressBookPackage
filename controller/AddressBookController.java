@@ -19,22 +19,24 @@ public class AddressBookController
 		return addressBookService.viewContactService();
 	}
 
-	public int updateContact(Person person,String name)
+        public int updateController(String name, String lastName)
 	{
-		 int result=addressBookService.updateService(person,name);	
-		 return result;
+		int result =addressBookService.updateService(name,lastName);
+		return result;
 	}
 
+	public int updateController(int ch,String name) 
+	{
+		int r=addressBookService.updateService(ch,name);
+		return r;
+	}
+	
 	public int deleteContact(Person person, String name) 
 	{
 		int result=addressBookService.deleteService(person,name);	
-		 return result;
+		return result;
 		
 	}
 
-	public int updateContact(String data1, Person person) 
-	{
-		int result=addressBookService.updateService(data1,person);	
-		return result;
-	}
+	
 }
