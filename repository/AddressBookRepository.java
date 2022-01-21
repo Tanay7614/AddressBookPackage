@@ -17,7 +17,6 @@ import unifrontEnd.Person;
 public class AddressBookRepository {
 	
     private List<Person> addressBooklist=new ArrayList<>();
-    int a=0;
     int p;
     public void saveContact(Person person1)
     {
@@ -56,90 +55,96 @@ public class AddressBookRepository {
      }
 
 	
-    public int updateRepository(Person person, String name) 
+        public int updateRepository(String firstname,String lastName)
 	{
-		int result=0;
+    	        int result=0;
 		Connection con=AddressBookSQl.getConnection();
 		String sql=String.format("select * from person");
     	        try {
-			Statement statement=con.createStatement();
-			ResultSet resultset=statement.executeQuery(sql);
-		        while(resultset.next()) 
-		        {
-			          if(resultset.getString(2).equalsIgnoreCase(name))
-			          {
-					 a=2;
-					  p= resultset.getInt(1);
-					  result=1;
-					  return result;
-		                  }
-				  if(resultset.getString(4).equalsIgnoreCase(name)) 
-				  {       
-					       a=4;
-					       p= resultset.getInt(1);						 
-					       result=1;
-					       return result;
-				  }
-				  if(resultset.getString(5).equalsIgnoreCase(name))
-				  {
-					       a=5;
-					       p= resultset.getInt(1);						 
-					       result=1;
-					       return result;
-				  }
-		        }
-	            }catch (SQLException e) {
-		     e.printStackTrace();
-		}
-	   return result;
-       }
-
+		      Statement statement=con.createStatement();
+		      resultset=statement.executeQuery(sql);
+		      while(resultset.next()) 
+		      {
+			 if(resultset.getString(2).equalsIgnoreCase(firstname))
+			 {
+			    if(resultset.getString(3).equalsIgnoreCase(lastName))
+			    {					   
+			       p= resultset.getInt(1);
+			       result=1;
+			       return result;
+		            }
+			 }
+		       }
+		     } catch (SQLException e) {					
+		       e.printStackTrace();
+		     }
+		       return result;
+	}
 	
-      public int updateRepository(String data1, Person person)
-      {
+	public int updateRepository(int ch,String name) {
 		int result=0;
 		Connection con=AddressBookSQl.getConnection();
-		 if(a==2)
-		 {
-			  String sql=String.format("update person set firstName=? where id=?");		 
-			  try {
-					PreparedStatement pst=con.prepareStatement(sql);					
-					pst.setString(1, data1);
-					pst.setInt(2, p);
-					pst.executeUpdate();
-					result=1;
-			      }         catch (SQLException e) {
-			                e.printStackTrace();
-			      }
-		 }
-		 if(a==4)
-		 {
-			  String sql=String.format("update person set cityName=? where id=?");
-			  try {
-					PreparedStatement pst=con.prepareStatement(sql);
-					pst.setString(1, data1);
-					pst.setInt(2, p);
-					pst.executeUpdate();
-					result=1;
-			      }         catch (SQLException e) {
-					e.printStackTrace();
-			      }
-		 }
-		 if(a==5) 
-		 {
-			  String sql=String.format("update person set phoneNumber=? where id=?");			
+		if(ch==1) 
+		{
+		    try {
+			    String sql=String.format("update person set firstName=? where id=?");
+			    PreparedStatement pst=con.prepareStatement(sql);					
+			    pst.setString(1, name);
+			    pst.setInt(2, p);
+			    pst.executeUpdate();
+			    result=1;
+			    return result;
+			   }  catch (SQLException e) {
+			      e.printStackTrace();
+		        }
+		}
+		if(ch==2)
+		{
+			String sql=String.format("update person set  lastName=? where id=?");
 			  try {
 					PreparedStatement pst=con.prepareStatement(sql);
-					pst.setString(1, data1);
+					pst.setString(1, name);
 					pst.setInt(2, p);
 					pst.executeUpdate();
 					result=1;
-			      }         catch (SQLException e) {
-				        e.printStackTrace();
+					return result;
+			      } catch (SQLException e) {
+				e.printStackTrace();
 			      }
+	        }
+		if(ch==3)
+		{
+			String sql=String.format("update person set cityName=? where id=?");
+			  try {
+					PreparedStatement pst=con.prepareStatement(sql);
+					
+					pst.setString(1, name);
+					pst.setInt(2, p);
+					pst.executeUpdate();
+					result=1;
+					return result;
+				   } 
+			       catch (SQLException e) {
+			       e.printStackTrace();
+			       }
+		 }
+		 if(ch==4) 
+		 {
+			 String sql=String.format("update person set phoneNumber=? where id=?");			
+			 try {
+					PreparedStatement pst=con.prepareStatement(sql);
+					pst.setString(1, name);
+					pst.setInt(2, p);
+					pst.executeUpdate();
+					result=1;
+			     } catch (SQLException e) {
+			       e.printStackTrace();
+			     }
+			 
 		  }
-	          return result;
-	   }
+			return result;
+	          }
+
 
 	public int deleteData(Person person, String name) 
 	{
@@ -163,8 +168,7 @@ public class AddressBookRepository {
 		    }            catch (SQLException e) {
 			         e.printStackTrace();
 		    }
-			
-	         return result;
-	}
+		    return result;
+	 }
 
 }
