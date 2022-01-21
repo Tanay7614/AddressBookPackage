@@ -35,78 +35,64 @@ public class AddressBookClient {
 
 	public void update() {
 		
-		System.out.println("Update contact via\n 1-firstName \n 2-CityName\n 3-phoneNumber");
-		int data=sc.nextInt();
-		switch(data){
-			      case 1: System.out.println("Enter first name of person");
-			              String name=sc.next();
-			              int result =addressBookController.updateContact(person,name);
-			              if(result==1) 
-			              {
-			      			    System.out.println("Enter New Data");
-			      			    String data1=sc.next();
-			      			    int r=addressBookController.updateContact(data1,person); 
-			      			    if(r==1) 
-			      			    {
-			      				      System.out.println("Data Updated Successfully");
-			      			    }
-			      		  }
-			              else  {
-			      			System.out.println(name+" Name is not present in the list");
-			      		  }
-			              break;
-			     
-			      case 2: System.out.println("Enter cityname of person");
-	                      String name1=sc.next();
-	                      int result1 =addressBookController.updateContact(person,name1);
-	                      if(result1==1) {
-	                    	   System.out.println("Enter New Data");
-			      			    String data1=sc.next();
-			      			    int r=addressBookController.updateContact(data1,person); 
-			      			    if(r==1) 
-			      			    {
-			      				      System.out.println("Data Updated Successfully");
-			      			    }
-	               		    }
-	                       else {
-	               			System.out.println(name1+" Name is not present in the list");
-	               		   }
+		System.out.println("Enter first name");
+		String firstName=sc.next();
+		System.out.println("Enter last name");
+		String lastName=sc.next();
+		int result=addressBookController.updateController(firstName,lastName);
+		if(result==1) {
+			System.out.println("Select field to edit details");
+			System.out.println(" 1-FirstName\n 2-LastName\n 3-City\n 4-phoneNumber");
+			int ch =sc.nextInt();
+			switch(ch) {
+			case 1:System.out.println("Enter New Data");
+			       String name=sc.next();
+			       int r=addressBookController.updateController(ch,name);
+			       if(r==1) {
+			    	   System.out.println("Data Updated SuccessFully");
+			       }
+			       break;
+					
+			case 2:System.out.println("Enter New Data");
+	                       String name1=sc.next();
+	                       int r1=addressBookController.updateController(ch,name1);
+	                       if(r1==1)
+			       {
+		    	           System.out.println("Data Updated SuccessFully");
+		               }
 	                       break;
-			     
-			      case 3: System.out.println("Enter phoneNumber of person");
-                           String name2=sc.next();
-                           int result2 =addressBookController.updateContact(person,name2);
-                           if(result2==1)
-                           {
-                        	   System.out.println("Enter New Data");
-			      			   String data1=sc.next();
-			      			    if(utility.regex(data1)==1)
-			      			    {
-			      			    	int r=addressBookController.updateContact(data1,person); 
-				      			    if(r==1)
-				      			    {
-				      				      System.out.println("Data Updated Successfully");
-				      			    }
-			      			    }
-			      			    else 
-			      			    {
-			      			    	System.out.println("Enter proper phoneNumber upto 10-Digit");
-			      			    }
-			      			    
-                   		   }
-                           else {
-                   			System.out.println(name2+" PhoneNumber is not present in the list");
-                   		   }
-                           break;
-                           
-                  default:  System.out.println("Inavalid Choice");
-		  }
+			case 3:System.out.println("Enter New Data");
+		               String city=sc.next();
+		               int r2=addressBookController.updateController(ch,city);
+		               if(r2==1) {
+			    	   System.out.println("Data Updated SuccessFully");
+			       }
+		               break;
+			case 4:System.out.println("Enter New Data");
+	                       String phoneNumber=sc.next();
+	                       if(utility.regex(phoneNumber)==1)
+	                       {
+	                          int r3=addressBookController.updateController(ch,phoneNumber);
+	                          if(r3==1)
+	                             {
+			    	         System.out.println("Data Updated SuccessFully");
+			             }
+	                       }else {
+	            	             System.out.println("Invalid PhoneNumber Enter Upto 10 digit");
+	                       }
+	                       break;
+	                       default:System.out.println("Invalid Choice");
+			}
+		}
+		else {
+			System.out.println("Invalid Data Enter Proper Data");
+		     }
+
 	}
-		
-		
+	
+
 	public void delete()
 	{
-		
 		System.out.println("Enter FirstName of person to Delete contact");
 		String name=sc.next();
 		int result=addressBookController.deleteContact(person,name);
