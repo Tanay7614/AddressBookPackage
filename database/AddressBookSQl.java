@@ -16,13 +16,10 @@ public class AddressBookSQl {
 	          String username="root";
       		  String passWord="Tanaybr7614";  
       		  try {   	  
-      			  System.out.println("Driver loaded successfully");
       			  con=DriverManager.getConnection(jdbcurl, username,passWord);
-      			  System.out.println("Connection is successful "+con);
 	              } catch (Exception e) {
         	        e.printStackTrace();
-          }
-      return con;  
-		 
+                  }
+                  return con;  
 	}
 }
